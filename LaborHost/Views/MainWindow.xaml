@@ -12,26 +12,17 @@
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         </Style>
     </Window.Resources>
-    <Grid>
+    <Grid Height="{Binding ActualWidth, ElementName=window, Mode=OneWay}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="{Binding Width, ElementName=sidebar}"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Border Padding="5" Grid.Column="0">
-            <StackPanel>
-                <materialDesign:Card Width="140" Height="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" UseLayoutRounding="True" Padding="0,0,0,6" Margin="0,0,0,10">
-                    <TextBlock>Lab. Multimedia</TextBlock>
-                </materialDesign:Card>
-                <materialDesign:Card Width="140" Height="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
-                    <TextBlock>Lab. Mobile</TextBlock>
-                </materialDesign:Card>
-            </StackPanel>
-        </Border>
+        <lib:Sidebar x:Name="sidebar"></lib:Sidebar>
 
-        <lib:ClientContainer Loaded="ClientContainer_Loaded" Grid.Column="1"/>
+        <lib:ClientContainer Grid.Column="1"/>
     </Grid>
 </Window>

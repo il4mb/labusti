@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:LaborHost.Lib" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:lib="clr-namespace:LaborHost.Lib"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" Background="#FFDBE7F4">
     <Border Padding="0" Grid.Column="1">
         <Grid>
             <Grid.ColumnDefinitions>

@@ -8,7 +8,7 @@
 
     <Border Padding="5">
         <Border.Background>
-            <ImageBrush ImageSource="/assets/images/computerlab.jpg" Stretch="UniformToFill" Opacity="0.75"/>
+            <ImageBrush ImageSource="pack://application:,,,/LaborHost;component/assets/images/computerlab.jpg" Stretch="UniformToFill" Opacity="0.75"/>
         </Border.Background>
 
         <Grid>
@@ -17,10 +17,19 @@
                 <ColumnDefinition Width="400"/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="0">
-                <TextBlock FontSize="18" FontFamily="Bahnschrift SemiBold" Foreground="White">Lab. Multimedia</TextBlock>
-                <TextBlock FontSize="18" FontFamily="Bahnschrift SemiBold"></TextBlock>
-            </StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" FontSize="18" FontFamily="Bahnschrift SemiBold" Foreground="White">Lab. Multimedia</TextBlock>
+                <TextBlock Grid.Row="1" FontSize="10" Foreground="#FF1186FF" Margin="0,13,0,0">http://192.168.20.18:5040</TextBlock>
+
+
+            </Grid>
+
+           
             <StackPanel Grid.Column="1">
                 <TextBlock FontSize="14" FontFamily="Bahnschrift SemiBold">Jadwal :</TextBlock>
                 <StackPanel>
