@@ -1,0 +1,3 @@
+[submodule "LaborHost/paexec"]
+	path = LaborHost/paexec
+	url = https://github.com/poweradminllc/PAExec
