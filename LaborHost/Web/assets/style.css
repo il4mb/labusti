@@ -1,0 +1,49 @@
+.container-header {
+    min-height: 200px;
+    background-color: #222222;
+    color: #ffffff;
+    background-image: var(--bg-image, "");
+    background-size: 100%;
+    padding: 1rem;
+}
+
+.client-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem;
+}
+@media (max-width: 600px) {
+    .client-wrapper {
+        justify-content: center;
+    }
+}
+
+.client-card {
+    width: 300px;
+    height: 200px;
+    overflow: hidden;
+    box-shadow: 1px 2px 4px #00000022;
+    display: flex;
+    flex-direction: column;
+}
+.client-visual {
+    padding-top: 50%;
+    position: relative;
+    overflow: hidden;
+    background: #00000055;
+}
+.client-visual img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0.45;
+}
+
+.client-label {
+    font-size: 18px;
+    font-weight: 600;
+    margin: auto 0 0 0;
+    padding: 10px 7px;
+}

@@ -1,0 +1,54 @@
+﻿<Window x:Class="Host.Views.AddClient"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Host.Views"
+        xmlns:Window="clr-namespace:Host.Controls.Window"
+        xmlns:Controls="clr-namespace:Host.Controls"
+        mc:Ignorable="d"
+        Title="ConfigWindow" Height="600" Width="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Window:Head Grid.Row="0" Title="Tambah Client"></Window:Head>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="180"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <WrapPanel x:Name="wrapPanel" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image Source="/assets/images/noise.png" Margin="25"/>
+            </WrapPanel>
+
+            <StackPanel x:Name="stackPanel" Grid.Row="1" Margin="5">
+
+                <Label>Client IP</Label>
+                <Controls:EditText x:Name="InputClientIp" Placeholder="Masukan ip client" Width="{Binding Width, ElementName=stackPanel}" />
+                <GroupBox x:Name="groupBox" Header="Administrator" Padding="5" Margin="0,0,0,15">
+                    <StackPanel x:Name="stackPanel1">
+                        <Label>Username</Label>
+                        <Controls:EditText x:Name="InputClientName" Placeholder="Masukan client username" Width="{Binding Width, ElementName=stackPanel1}"/>
+                        <Label>Password</Label>
+                        <Controls:EditText x:Name="InputClientPassword" Placeholder="Masukan client password" Width="{Binding Width, ElementName=stackPanel1}"/>
+                    </StackPanel>
+                </GroupBox>
+                <Button Click="Button_Click" Padding="5" Background="#FF1C7EE3" Foreground="White" BorderBrush="#FFD4D4D4" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="25,30,25,15">
+                    SUBMIT
+                </Button>
+            </StackPanel>
+
+        </Grid>
+    </Grid>
+</Window>

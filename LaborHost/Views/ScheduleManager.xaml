@@ -1,0 +1,22 @@
+﻿<Window x:Class="Host.Views.ScheduleManager"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Host.Views"
+        xmlns:Window="clr-namespace:Host.Controls.Window"
+        mc:Ignorable="d"
+        Title="ConfigWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Window:Head Title="Kelola Jadwal">
+        </Window:Head>
+    </Grid>
+</Window>

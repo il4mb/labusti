@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="Host.Controls.Sidebar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:Host.Controls"
+             mc:Ignorable="d" Width="200">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+
+        <Border Padding="5" Grid.ColumnSpan="1" Grid.Row="0" Background="#FF063D6F">
+            <Grid x:Name="grid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" FontFamily="Bahnschrift SemiBold" FontWeight="Bold" Foreground="White" FontSize="16" VerticalAlignment="Center">Laboratorium</TextBlock>
+                <Button 
+                    Grid.Column="1" 
+                    Background="{x:Null}" 
+                    Padding="5" 
+                    Height="{Binding ActualHeight, ElementName=grid, Mode=OneWay}" 
+                    Margin="0,0,0,0" 
+                    Click="RefreshStatRequest"
+                    >
+                    <materialDesign:PackIcon Kind="Sync" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Height="15" Width="15"/>
+                </Button>
+            </Grid>
+        </Border>
+
+        <Border Padding="5" Grid.Column="0" Grid.Row="1" MinHeight="500">
+            <StackPanel x:Name="HostWrapper"></StackPanel>
+        </Border>
+
+        <Rectangle 
+            x:Name="Handler" 
+            Grid.Column="1"
+            MouseEnter="HandlerOnMouseEnter" 
+            MouseLeave="HandlerOnMouseLeave" 
+            MouseDown="HandlerOnMouseDown" 
+            MouseMove="HandlerOnMouseMove" 
+            MouseUp="HandlerOnMouseUp" Grid.RowSpan="2" Panel.ZIndex="10"/>
+    </Grid>
+</UserControl>

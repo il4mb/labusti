@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Host": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Program Files\\Labor\\Debug",
+      "remoteDebugEnabled": false
+    }
+  }
+}

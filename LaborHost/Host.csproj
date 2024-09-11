@@ -1,0 +1,103 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows10.0.18362.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.2.0" />
+    <PackageReference Include="MaterialDesignThemes" Version="5.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="8.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="assets\images\close.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="assets\images\computerlab.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="assets\images\hide.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="assets\images\laborusti.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="assets\images\maximize.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="assets\images\minimize.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="assets\images\noise.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+	
+    <ItemGroup>
+		<Resource Include="Web\**\*">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+    </ItemGroup>
+	
+    <ItemGroup>
+      <None Remove="assets\images\close.png" />
+      <None Remove="assets\images\hide.png" />
+      <None Remove="assets\images\laborusti.png" />
+      <None Remove="assets\images\maximize.png" />
+      <None Remove="assets\images\minimize.png" />
+      <None Remove="Web\assets\images\computerlab.jpg" />
+      <None Remove="Web\assets\images\noise.png" />
+    </ItemGroup>
+	
+    <ItemGroup>
+      <ProjectReference Include="..\LaborClient\Client.csproj" />
+    </ItemGroup>
+	
+    <ItemGroup>
+      <None Update="Model1.tt">
+        <Generator>TextTemplatingFileGenerator</Generator>
+        <LastGenOutput>Model1.cs</LastGenOutput>
+      </None>
+    </ItemGroup>
+	
+    <ItemGroup>
+      <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+    </ItemGroup>
+	
+    <ItemGroup>
+      <Compile Update="Model1.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Model1.tt</DependentUpon>
+      </Compile>
+      <Compile Update="Views\Proxy.xaml.cs">
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\ScheduleManager.xaml.cs">
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\AddSchedule.xaml.cs">
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\ClientManager.xaml.cs">
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\AddClient.xaml.cs">
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
+	
+
+</Project>
